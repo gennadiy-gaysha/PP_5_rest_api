@@ -22,7 +22,7 @@ class Painting(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
-    year_created = models.DateField()
+    year_created = models.PositiveIntegerField()
     technique = models.CharField(max_length=25, choices=TECHNIQUE_CHOICES)
     theme = models.CharField(max_length=25,
                                     choices=THEME_CHOICES)

@@ -9,6 +9,12 @@ class PaintingSerializer(serializers.ModelSerializer):
     artist_name = serializers.ReadOnlyField(source='owner.profile.name')
     is_owner = serializers.SerializerMethodField()
     orientation = serializers.SerializerMethodField()
+    year_created = serializers.IntegerField(min_value=1000, max_value=9999)
+
+    def validate_year_created(self, value):
+        if not 1000<=value<=9999:
+            raise serializers.ValidationError('Enter a valid year')
+        return value
 
     def validate_image(self, value):
         if value.size > 1024 * 1024 * 2:
@@ -30,9 +36,9 @@ class PaintingSerializer(serializers.ModelSerializer):
         """
         Determines the orientation of the painting based on its width and height.
         """
-        if obj.width > obj.heigh:
+        if obj.width > obj.height:
             return 'Landscape'
-        elif obj.width < obj.heigh:
+        elif obj.width < obj.height:
             return 'Portrait'
         else:
             return 'Square'
@@ -43,5 +49,5 @@ class PaintingSerializer(serializers.ModelSerializer):
             'id', 'owner', 'profile_id', 'profile_image', 'created_at',
             'updated_at', 'artist_name', 'is_owner', 'title',
             'year_created', 'technique', 'theme', 'width', 'height',
-            'orientation', 'price', 'availability',
+            'orientation', 'price', 'availability', 'image'
         ]
