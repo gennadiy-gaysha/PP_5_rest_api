@@ -6,6 +6,7 @@ from django.dispatch import receiver
 GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'),('Other', 'Other'))
 
 class Profile(models.Model):
+    # owner stands for the User instance
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -29,7 +30,8 @@ class Profile(models.Model):
     def email(self):
         """Method acts as a bridge to access the email field from the User model,
         ensuring that we always get the current email of the user associated with
-        a profile.
+        a profile. Not strictly necessary for the purpose of this project, since
+        we have the email field in ProfileSerializer.
         """
         return  self.owner.email
 
