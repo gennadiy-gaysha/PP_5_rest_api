@@ -33,4 +33,4 @@ class CommentDetailSerializer(CommentSerializer):
     """
     Serializer for the Comment model used in Detail view
     """
-    post = serializers.ReadOnlyField(source='painting.id')
+    painting = serializers.ReadOnlyField(source='painting.id')
