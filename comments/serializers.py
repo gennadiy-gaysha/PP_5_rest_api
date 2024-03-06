@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from .models import Comment
 
+
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Comment model
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
@@ -22,4 +26,11 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'painting', 'created_at', 'updated_at', 'content']
+                  'painting', 'created_at', 'updated_at', 'content']
+
+
+class CommentDetailSerializer(CommentSerializer):
+    """
+    Serializer for the Comment model used in Detail view
+    """
+    post = serializers.ReadOnlyField(source='painting.id')
