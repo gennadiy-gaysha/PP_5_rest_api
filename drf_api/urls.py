@@ -7,4 +7,5 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('', include('paintings.urls')),
     path('', include('comments.urls')),
+    path('', include('observations.urls')),
 ]
