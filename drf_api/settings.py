@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'profiles',
     'paintings',
     'comments',
-    'observations'
+    'observations',
+    'followers',
 ]
 
 MIDDLEWARE = [
