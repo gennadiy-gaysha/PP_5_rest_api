@@ -12,7 +12,7 @@ class PaintingSerializer(serializers.ModelSerializer):
     year_created = serializers.IntegerField(min_value=1000, max_value=9999)
 
     def validate_year_created(self, value):
-        if not 1000<=value<=9999:
+        if not 1000 <= value <= 9999:
             raise serializers.ValidationError('Enter a valid year')
         return value
 
@@ -26,7 +26,6 @@ class PaintingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Image height is larger than '
                                               '4096px!')
         return value
-
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -46,8 +45,8 @@ class PaintingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Painting
         fields = [
-            'id', 'owner', 'profile_id', 'profile_image', 'created_at',
-            'updated_at', 'artist_name', 'is_owner', 'title',
+            'id', 'owner', 'profile_id', 'is_owner', 'profile_image',
+            'created_at', 'updated_at', 'artist_name', 'title',
             'year_created', 'technique', 'theme', 'width', 'height',
             'orientation', 'price', 'availability', 'image'
         ]
