@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('paintings.urls')),
     path('', include('comments.urls')),
     path('', include('observations.urls')),
+    path('', include('followers.urls')),
 ]
