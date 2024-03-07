@@ -6,6 +6,9 @@ from followers.models import Follower
 class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     email = serializers.ReadOnlyField(source='owner.email')
+    paintings_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
+    following_count = serializers.ReadOnlyField()
     # SerializerMethodField - is a type of field that is used in DRF serializers
     # to add custom fields to our serialized data, where the value of the field
     # is computed by a method on the serializer class SerializerMethodField: This
@@ -59,5 +62,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'created_at', 'updated_at', 'name', 'bio',
             'home_country', 'gender', 'birthdate', 'image', 'email',
-            'is_owner', 'following_id',
+            'is_owner', 'following_id', 'paintings_count', 'followers_count',
+            'following_count',
         ]
