@@ -21,7 +21,7 @@ class PaintingList(generics.ListCreateAPIView):
     filterset_class = PaintingFilter
     search_fields = ['owner__profile__name', 'title']
     ordering_fields = ['observations_count', 'comments_count',
-                       'observations__created_at']
+                       'observations__created_at', 'price']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
