@@ -12,7 +12,8 @@ class PaintingList(generics.ListCreateAPIView):
         comments_count=Count('comment', distinct=True),
         observations_count=Count('observations', distinct=True)
     ).order_by('-created_at')
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    search_fields = ['owner__profile__name', 'title']
     ordering_fields = ['observations_count', 'comments_count',
                        'observations__created_at']
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
