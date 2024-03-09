@@ -12,6 +12,8 @@ class PaintingSerializer(serializers.ModelSerializer):
     orientation = serializers.SerializerMethodField()
     year_created = serializers.IntegerField(min_value=1000, max_value=9999)
     observation_id = serializers.SerializerMethodField()
+    observations_count = serializers.ReadOnlyField()
+    comments_count = serializers.ReadOnlyField()
 
     def validate_year_created(self, value):
         if not 1000 <= value <= 9999:
@@ -44,13 +46,12 @@ class PaintingSerializer(serializers.ModelSerializer):
         else:
             return 'Square'
 
-
     def get_observation_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
             observation = Observation.objects.filter(owner=user,
-                                                painting=obj
-                                                ).first()
+                                                     painting=obj
+                                                     ).first()
             return observation.id if observation else None
         return None
 
@@ -61,4 +62,5 @@ class PaintingSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at', 'artist_name', 'title',
             'year_created', 'technique', 'theme', 'width', 'height',
             'orientation', 'price', 'availability', 'image', 'observation_id',
+            'observations_count', 'comments_count',
         ]
