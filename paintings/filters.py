@@ -4,4 +4,4 @@ from .models import Painting
 class PaintingFilter(df_filters.FilterSet):
     class Meta:
         model = Painting
-        fields = ['theme']
+        fields = ['theme', 'technique', 'availability']
