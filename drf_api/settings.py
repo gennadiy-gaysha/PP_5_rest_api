@@ -21,9 +21,12 @@ REST_FRAMEWORK = {
         if os.environ.get('DEV') == '1'
         # Tokens in Production
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    ], 'DEFAULT_PAGINATION_CLASS':
+    ],
+    'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10, 'DATETIME_FORMAT': '%d %b %Y', }
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
+}
 
 # Check if DEV environment variable is set to '1' (development mode)
 if os.environ.get('DEV') != '1':
@@ -36,6 +39,10 @@ REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+# To be able to have the front end app and the API deployed to different
+# platforms, set the JWT_AUTH_SAMESITE attribute to 'None'. Without this the
+# cookies would be blocked.
+JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
@@ -48,9 +55,11 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEV') == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    os.environ.get('pp-5-drf-api-cb9dad6bdfdf.herokuapp.com', '127.0.0.1'),
+]
 
 # Application definition
 
@@ -74,6 +83,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'corsheaders',
 
     'profiles',
     'paintings',
@@ -85,6 +95,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,6 +104,34 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# ============================================================================
+cors_origins = []
+
+# Get the CLIENT_ORIGIN from the environment and append it if it exists
+client_origin = os.environ.get('CLIENT_ORIGIN')
+if client_origin:
+    cors_origins.append(client_origin)
+
+# Get the CLIENT_ORIGIN_DEV from the environment and append it if it exists
+client_origin_dev = os.environ.get('CLIENT_ORIGIN_DEV')
+if client_origin_dev:
+    cors_origins.append(client_origin_dev)
+
+# Ensure CORS_ALLOWED_ORIGINS is always a list, even if empty or filled
+# based on conditions
+CORS_ALLOWED_ORIGINS = cors_origins
+
+# If there are no specific CLIENT_ORIGIN or CLIENT_ORIGIN_DEV, specify a
+# default or fallback
+if not CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
+# ============================================================================
+
+# Enable sending cookies in cross-origin requests so
+# that users can get authentication functionality
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'drf_api.urls'
 
