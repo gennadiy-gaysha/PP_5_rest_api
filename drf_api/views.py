@@ -9,9 +9,10 @@ def endpoint_list(request):
         'http://127.0.0.1:8000/comments/',
         'http://127.0.0.1:8000/observations/',
         'http://127.0.0.1:8000/followers/',
-        'https://drf-api-app-gaysha-repeat-150999686cdd.herokuapp.com/profiles/',
-        'https://drf-api-app-gaysha-repeat-150999686cdd.herokuapp.com/posts/',
-        'https://drf-api-app-gaysha-repeat-150999686cdd.herokuapp.com/comments/',
-        'https://drf-api-app-gaysha-repeat-150999686cdd.herokuapp.com/likes/',
-        'https://drf-api-app-gaysha-repeat-150999686cdd.herokuapp.com/followers/',
+        'https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/profiles/',
+        'https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/paintings/',
+        'https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/comments/',
+        'https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/observations/',
+        'https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/followers/',
     ])
+
