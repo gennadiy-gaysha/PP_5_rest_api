@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,7 +21,16 @@ REST_FRAMEWORK = {
         if os.environ.get('DEV') == '1'
         # Tokens in Production
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    ]}
+    ], 'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, 'DATETIME_FORMAT': '%d %b %Y', }
+
+# Check if DEV environment variable is set to '1' (development mode)
+if os.environ.get('DEV') != '1':
+    # Apply production-specific settings
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
@@ -107,12 +117,20 @@ WSGI_APPLICATION = 'drf_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Check if DEV environment variable is set to '1' for development mode
+if os.environ.get('DEV') == '1':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # Production mode settings
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    print('Connected!')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
