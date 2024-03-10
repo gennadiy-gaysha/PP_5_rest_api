@@ -10,12 +10,12 @@ class PaintingSerializer(serializers.ModelSerializer):
     artist_name = serializers.ReadOnlyField(source='owner.profile.name')
     is_owner = serializers.SerializerMethodField()
     orientation = serializers.SerializerMethodField()
-    year_created = serializers.IntegerField(min_value=1000, max_value=9999)
+    creation_year = serializers.IntegerField(min_value=1000, max_value=9999)
     observation_id = serializers.SerializerMethodField()
     observations_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
 
-    def validate_year_created(self, value):
+    def validate_creation_year(self, value):
         if not 1000 <= value <= 9999:
             raise serializers.ValidationError('Enter a valid year')
         return value
@@ -60,7 +60,7 @@ class PaintingSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'profile_id', 'is_owner', 'profile_image',
             'created_at', 'updated_at', 'artist_name', 'title',
-            'year_created', 'technique', 'theme', 'width', 'height',
+            'creation_year', 'technique', 'theme', 'width', 'height',
             'orientation', 'price', 'availability', 'image', 'observation_id',
             'observations_count', 'comments_count',
         ]
