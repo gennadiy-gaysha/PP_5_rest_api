@@ -28,7 +28,7 @@ class PaintingFilter(df_filters.FilterSet):
         Filters the queryset based on painting orientation.
         Assumes 'Landscape', 'Portrait', and 'Square' as valid values for 'value'.
         """
-        if value.lower() == 'Landscape':
+        if value.lower() == 'landscape':
             return queryset.filter(width__gt=F('height'))
         elif value.lower() == 'portrait':
             return queryset.filter(width__lt=F('height'))
