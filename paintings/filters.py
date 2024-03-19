@@ -5,8 +5,8 @@ from django.db.models import F
 
 class PaintingFilter(df_filters.FilterSet):
     ORIENTATION_CHOICES = [
-        ('Landscape', 'Landscape'),
-        ('Portrait', 'Portrait'),
+        ('Horizontal', 'Horizontal'),
+        ('Vertical', 'Vertical'),
         ('Square', 'Square'),
     ]
 
@@ -26,11 +26,11 @@ class PaintingFilter(df_filters.FilterSet):
     def filter_orientation(self, queryset, name, value):
         """
         Filters the queryset based on painting orientation.
-        Assumes 'Landscape', 'Portrait', and 'Square' as valid values for 'value'.
+        Assumes 'Horizontal', 'Vertical', and 'Square' as valid values for 'value'.
         """
-        if value.lower() == 'landscape':
+        if value.lower() == 'horizontal':
             return queryset.filter(width__gt=F('height'))
-        elif value.lower() == 'portrait':
+        elif value.lower() == 'vertical':
             return queryset.filter(width__lt=F('height'))
         elif value.lower() == 'square':
             return queryset.filter(width=F('height'))
