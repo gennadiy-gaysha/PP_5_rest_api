@@ -40,9 +40,9 @@ class PaintingSerializer(serializers.ModelSerializer):
         Determines the orientation of the painting based on its width and height.
         """
         if obj.width > obj.height:
-            return 'Landscape'
+            return 'Horizontal'
         elif obj.width < obj.height:
-            return 'Portrait'
+            return 'Vertical'
         else:
             return 'Square'
 
