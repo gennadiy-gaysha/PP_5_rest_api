@@ -15,7 +15,7 @@ class PaintingFilter(df_filters.FilterSet):
 
     class Meta:
         model = Painting
-        fields = ['theme', 'technique', 'availability',
+        fields = ['theme', 'technique',
                   # User's Faves
                   'owner__followed__owner__profile',
                   # User's Watchlist

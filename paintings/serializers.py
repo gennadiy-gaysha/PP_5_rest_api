@@ -61,6 +61,6 @@ class PaintingSerializer(serializers.ModelSerializer):
             'id', 'owner', 'profile_id', 'is_owner', 'profile_image',
             'created_at', 'updated_at', 'artist_name', 'title',
             'creation_year', 'technique', 'theme', 'width', 'height',
-            'orientation', 'price', 'availability', 'image', 'observation_id',
+            'orientation', 'price', 'image', 'observation_id',
             'observations_count', 'comments_count',
         ]

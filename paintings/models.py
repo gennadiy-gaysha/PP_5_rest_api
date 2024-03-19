@@ -13,9 +13,6 @@ THEME_CHOICES = (
     ('Abstract', 'Abstract'), ('Figurative', 'Figurative'), ('Genre', 'Genre'),
     ('Animal', 'Animal'), )
 
-AVAILABILITY_CHOICES = (('In stock', 'In stock'),('Reserved', 'Reserved'),
-                        ('Sold', 'Sold'))
-
 
 class Painting(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,13 +21,10 @@ class Painting(models.Model):
     title = models.CharField(max_length=255)
     creation_year = models.PositiveIntegerField(blank=True)
     technique = models.CharField(max_length=25, choices=TECHNIQUE_CHOICES)
-    theme = models.CharField(max_length=25,
-                                    choices=THEME_CHOICES)
+    theme = models.CharField(max_length=25,                                  choices=THEME_CHOICES)
     width = models.DecimalField(max_digits=6, decimal_places=2)
     height = models.DecimalField(max_digits=6, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    availability = models.CharField(max_length=25,
-                                    choices=AVAILABILITY_CHOICES)
     image = models.ImageField(
         upload_to='images/', default='../default_painting_czwroy', blank=True
     )
