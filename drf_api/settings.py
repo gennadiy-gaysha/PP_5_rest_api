@@ -44,6 +44,14 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 # cookies would be blocked.
 JWT_AUTH_SAMESITE = 'None'
 
+# For session cookies
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True  # Remember, SameSite='None' requires Secure=True
+
+# For CSRF cookies
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
 }
