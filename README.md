@@ -42,3 +42,28 @@ interactions are intuitive and meet the project's needs. Comprehensive testing
 is conducted to secure these endpoints against unauthorized Create, Read, 
 Update, and Delete operations, safeguarding the integrity and privacy of the 
 data.
+
+## Entity Relationship Diagram
+
+To create Entity Relationship Diagram I followed these steps:
+
+- Install Django-Extensions:
+`pip install django-extensions`
+- Add Django-Extensions to INSTALLED_APPS in project's settings.py file:
+```python
+INSTALLED_APPS = [
+    'django_extensions',
+]
+```
+- Create a `PP_5_drf_api_erd.dot` file using the graph_models command with 
+various options for the models created in my project:
+`(venv) PS C:\PP_5_drf_api> python manage.py graph_models followers observations paintings profiles --rankdir BT --color-code-deletions --arrow-shape normal -o PP_5_drf_api_erd.dot`
+- Copy the entire content of PP_5_drf_api_erd.dot file and paste it into 
+  [dreampuf](https://dreampuf.github.io/GraphvizOnline/) service left window
+- Download the ERD generated in the right window in png format.
+
+Below is the Entity Relationship Diagram for the PP_5_drf_api project:
+
+![ERD ArtShowcase](readme_images/graphviz.png)
+
+<br>[Back to top ⇧](#contents)
