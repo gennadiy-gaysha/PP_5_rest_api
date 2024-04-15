@@ -538,3 +538,63 @@ REST Framework simplifies the process of expanding or modifying the Observation
 functionality, such as adding additional fields or methods to enhance the 
 feature set.
 
+### Manual Testing
+
+All Create, Update, and Delete functionalities of API endpoints were manually 
+tested in development mode (DEV=1) on a local machine at the URL 
+http://127.0.0.1:8000/. All other functionalities of the endpoints were tested 
+using the deployed API at https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/.
+
+| App          | Endpoint                                            | Expected Result                                                                                                                           | Pass/Fail |
+|--------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| paintings    | /paintings/                                         | Return a list of all paintings ordered by creation date in descending order                                                               | Pass      |
+| paintings    | /paintings/create                                   | Logged in user can create a new painting                                                                                                  | Pass      |
+| paintings    | /paintings/create                                   | Logged out user cannot create a new painting                                                                                              | Pass      |
+| paintings    | /paintings/{id}                                     | Retrieve a single painting with a correct ID                                                                                              | Pass      |
+| paintings    | /paintings/{id}/update                              | Painting owner can update a painting with a correct ID                                                                                    | Pass      |
+| paintings    | /paintings/{id}/update                              | Non-owner cannot update the painting with a correct ID                                                                                    | Pass      |
+| paintings    | /paintings/{id}/delete                              | Painting owner can delete a painting with a correct ID                                                                                    | Pass      |
+| paintings    | /paintings/{id}/delete                              | Non-owner cannot delete the painting with a correct ID                                                                                    | Pass      |
+| paintings    | /paintings/?search={search_term}                    | Search for paintings by title or painter's name that includes {search_term}.                                                              | Pass      |
+| paintings    | /paintings/?ordering=observations_count             | Return a list of paintings ordered by number of observations in ascending order                                                           | Pass      |
+| paintings    | /paintings/?ordering=-observations_count            | Return a list of paintings ordered by number of observations in descending order                                                          | Pass      |
+| paintings    | /paintings/?ordering=comments_count                 | Return a list of paintings ordered by number of comments in ascending order                                                               | Pass      |
+| paintings    | /paintings/?ordering=-comments_count                | Return a list of paintings ordered by number of comments in descending order                                                              | Pass      |
+| paintings    | /paintings/?ordering=observations__created_at       | Return a list of paintings ordered by observation creation date in ascending order                                                        | Pass      |
+| paintings    | /paintings/?ordering=-observations__created_at      | Return a list of paintings ordered by observation creation date in descending order                                                       | Pass      |
+| paintings    | /paintings/?ordering=price                          | Return a list of paintings ordered by price in ascending order                                                                            | Pass      |
+| paintings    | /paintings/?ordering=-price                         | Return a list of paintings ordered by price in descending order                                                                           | Pass      |
+| paintings    | /paintings/?theme=Portrait                          | Return a list of paintings with the theme 'Portrait'                                                                                      | Pass      |
+| paintings    | /paintings/?technique=Oil Paint                     | Return a list of paintings with the technique 'Oil Paint'                                                                                 | Pass      |
+| paintings    | /paintings/?owner__followed__owner__profile={id}    | Return a list of paintings by the favorite artists of the user with profile ID {id}                                                       | Pass      |
+| paintings    | /paintings/?observations__owner__profile={id}       | Return a list of observed paintings by the user with profile ID {id}                                                                      | Pass      |
+| paintings    | /paintings/?owner__profile={id}                     | Return a list of paintings owned by the user with profile ID {id}                                                                         | Pass      |
+| paintings    | /paintings/?orientation=Horizontal                  | Return a list of paintings with a horizontal orientation.                                                                                 | Pass      |
+| paintings    | /paintings/?orientation=Vertical                    | Return a list of paintings with a vertical orientation.                                                                                   | Pass      |
+| paintings    | /paintings/?orientation=Square                      | Return a list of paintings with a square orientation                                                                                      | Pass      |
+| profiles     | /profiles/                                          | Return a list of all profiles ordered by creation date in descending order                                                                | Pass      |
+| profiles     | /profiles/{id}/                                     | Return profile details for the profile with ID {id}                                                                                       | Pass      |
+| profiles     | /profiles/{id}/update                               | Allow update of profile with ID {id} if user is owner                                                                                     | Pass      |
+| profiles     | /profiles/{id}/update                               | Non-owner cannot update the profile with ID {id}                                                                                          | Pass      |
+| profiles     | /profiles/?ordering=paintings_count                 | Return profiles ordered by the count of paintings ascending                                                                               | Pass      |
+| profiles     | /profiles/?ordering=-paintings_count                | Return profiles ordered by the count of paintings descending                                                                              | Pass      |
+| profiles     | /profiles/?ordering=followers_count                 | Return profiles ordered by the count of followers ascending                                                                               | Pass      |
+| profiles     | /profiles/?ordering=-followers_count                | Return profiles ordered by the count of followers descending                                                                              | Pass      |
+| profiles     | /profiles/?ordering=following_count                 | Return profiles ordered by the count of following ascending                                                                               | Pass      |
+| profiles     | /profiles/?ordering=-following_count                | Return profiles ordered by the count of following descending                                                                              | Pass      |
+| profiles     | /profiles/?owner__following__followed__profile={id} | Return profiles that follow a user with a given profile ID (list of followers’ profiles)                                                  | Pass      |
+| profiles     | /profiles/?owner__followed__owner__profile={id}     | Return profiles that are followed by a user with a given profile ID (list of favourite profiles)                                          | Pass      |
+| comments     | /comments/                                          | Return a list of all comments ordered by creation date in descending order                                                                | Pass      |
+| comments     | /comments/create                                    | Create a new comment when valid data is provided; user must be authenticated                                                              | Pass      |
+| comments     | /comments/{id}                                      | Return a single comment with detailed information including naturalized times                                                             | Pass      |
+| comments     | /comments/{id}/update                               | Update a comment if the authenticated user is the owner                                                                                   | Pass      |
+| comments     | /comments/{id}/delete                               | Delete a comment if the authenticated user is the owner                                                                                   | Pass      |
+| comments     | /comments/?painting={painting_id}                   | Return all comments associated with a specific painting identified by {painting_id}                                                       | Pass      |
+| followers    | /followers/                                         | Return a list of all follower relationships ordered by the date they were created in descending order                                     | Pass      |
+| followers    | /followers/create                                   | Create a new follower relationship when valid data is provided; user must be authenticated                                                | Pass      |
+| followers    | /followers/{id}                                     | Return details of a specific follower relationship                                                                                        | Pass      |
+| followers    | /followers/{id}/delete                              | Allow an authenticated user who is the owner of the follower relationship to delete it                                                    | Pass      |
+| observations | /observations/                                      | Return a list of all observations ordered by the date created in descending order                                                         | Pass      |
+| observations | /observations/create                                | Allow an authenticated user to create a new observation if the painting has not already been observed by them                             | Pass      |
+| observations | /observations/{id}                                  | Return details of a specific observation identified by {id}, showing the observing user and the observed painting                         | Pass      |
+| Observations | /observations/{id}/delete                           | Allow the authenticated user (if they are the owner of the observation) to delete the observation, effectively "unobserving" the painting | Pass      |
