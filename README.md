@@ -28,7 +28,9 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
   - [**PyCharm Code Inspections**](#pycharm-code-inspections)
 - [**Technologies Used**](#technologies-used)
 - [**Deployment To Heroku**](#deployment-to-heroku)
-- [**Cloning This Project**](#cloning-and-setting-up-this-project)
+- [**Cloning and Forking Repository**](#cloning-and-forking-repository)
+  - [Cloning the Repository](#cloning-the-repository)
+  - [Forking the Repository](#forking-the-repository)
 - [**Credits**](#credits)
   - [**Content**](#content)
   - [**Media**](#media)
@@ -548,6 +550,8 @@ feature set.
 
 <br>[Back to top ⇧](#contents)
 
+## Testing
+
 ### Manual Testing
 
 All Create, Update, and Delete functionalities of API endpoints were manually 
@@ -628,7 +632,8 @@ range of potential errors, code smells, and other issues. These inspections are
 highly configurable and can be adjusted based on your project's needs. They can 
 detect not only Python-specific issues but also many framework-specific issues, 
 such as those related to Django.
-- External Tools Integration: PyCharm allows integration with external tools 
+- **External Tools Integration**: PyCharm allows integration with external 
+  tools 
 like flake8, pylint, or mypy, which can be configured to run automatically on 
 your codebase. These tools provide additional checks beyond what PyCharm covers 
 with its own inspections and the PEP 8 checker.
@@ -636,3 +641,77 @@ with its own inspections and the PEP 8 checker.
 Throughout the development of this project, the files were regularly checked 
 and amended to ensure compliance with PyCharm's inspections. Occasionally, weak 
 warnings were intentionally ignored when they were deemed unreasonable.
+
+## Technologies Used
+
+### Languages
+
+[Python](https://www.python.org/) a programming language designed for rapid 
+development and efficient system integration.
+
+### Frameworks
+
+[Django](https://www.djangoproject.com/) - a high-level Python web framework 
+that facilitates rapid development with a clean and pragmatic design. 
+[Django REST Framework](https://www.django-rest-framework.org/) - a versatile 
+toolkit for creating Web APIs, enabling easy and efficient web services 
+development.
+
+### Packages
+
+Below are the key packages from my requirements.txt file that are especially 
+critical for this Django REST API project:
+
+- cloudinary==1.39.0: A Python wrapper for integrating with Cloudinary's 
+service, allowing easy file uploads and manipulations in the cloud.
+- django-cloudinary-storage==0.3.0: Django integration for Cloudinary storage, 
+handling media asset management in the cloud.
+- dj-rest-auth==2.1.9: Handles common authentication tasks for Django REST 
+framework.
+- django-allauth==0.44.0: Provides authentication mechanisms, commonly used 
+to support social authentication.
+- django-cors-headers==4.3.1: Allows handling Cross-Origin Resource Sharing 
+(CORS), enabling the API to be safely used from front-ends served from 
+different origins.
+- django-filter==23.5: Offers a convenient way to add query filtering to 
+the API.
+- dj-database-url==0.5.0: Utility for configuring the Django database using 
+a URL (useful for 12-factor applications).
+- pillow==10.2.0: The Python Imaging Library adds image processing capabilities 
+to Python interpreter.
+- psycopg2==2.9.9: PostgreSQL database adapter, essential for projects using 
+PostgreSQL as their database.
+- djangorestframework-simplejwt==5.3.1: Integrates JSON Web Token (JWT) 
+authentication into Django REST framework, a common way to handle API 
+authentication.
+- PyJWT==2.8.0: A Python library which allows to encode and decode JSON 
+Web Tokens (JWT).
+- python-dotenv==1.0.1: Reads key-value pairs from a .env file and sets them 
+as environment variables.
+- gunicorn==21.2.0: A WSGI HTTP server for UNIX systems, used to run Python 
+web applications.
+
+<br>[Back to top ⇧](#contents)
+
+## Deployment To Heroku
+
+<br>[Back to top ⇧](#contents)
+
+## Cloning and Forking Repository
+
+### Cloning the Repository
+
+### Forking the Repository
+
+<br>[Back to top ⇧](#contents)
+
+## Credits
+
+### Content
+
+### Media
+
+<br>[Back to top ⇧](#contents)
+
+## Acknowledgments
+<br>[Back to top ⇧](#contents)
