@@ -12,12 +12,12 @@ class FollowerSerializer(serializers.ModelSerializer):
         fields = ['id', 'owner', 'created_at', 'followed', 'followed_name']
 
     def create(self, validated_data):
-        '''
+        """
         The create function in FollowerSerializer class is an overridden
         method from Django's ModelSerializer class, which is used to handle
         the creation of new instances of the Follower model based on the
         validated data received from an API request.
-        '''
+        """
         try:
             return super().create(validated_data)
         except IntegrityError:

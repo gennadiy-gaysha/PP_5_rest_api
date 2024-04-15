@@ -14,10 +14,10 @@ class FollowerList(generics.ListCreateAPIView):
     queryset = Follower.objects.all()
 
     def perform_create(self, serializer):
-        '''
-         When a new Follower instance is created, we need to assign the owner
-         of the Follower to the current authenticated user making the request.
-        '''
+        """
+        When a new Follower instance is created, we need to assign the owner
+        of the Follower to the current authenticated user making the request.
+        """
         serializer.save(owner=self.request.user)
 
 class FollowerDetail(generics.RetrieveDestroyAPIView):

@@ -15,21 +15,21 @@ class CommentSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
-        '''
+        """
         This method takes an instance of the object being serialized (obj) as
         its argument. Retrieves the current request object from self.context[
         'request']. The context is a dictionary that serializers have, which
         can carry additional information, including the current request. The
         context must be passed to the serializer at the time of its
         initialization (typically in views).
-        '''
+        """
         request = self.context['request']
         return request.user == obj.owner
 
-    def get_created_at(self,obj):
+    def get_created_at(self, obj):
         return naturaltime(obj.created_at)
 
-    def get_updated_at(self,obj):
+    def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
 
     class Meta:
