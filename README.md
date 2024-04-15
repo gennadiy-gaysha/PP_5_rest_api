@@ -25,7 +25,7 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
   
 - [**Testing**](#testing)
   - [**Manual Testing**](#manual-testing)
-  - [**PyCharm Code Inspections**](#pep8-validation)
+  - [**PyCharm Code Inspections**](#pycharm-code-inspections)
 - [**Technologies Used**](#technologies-used)
 - [**Deployment To Heroku**](#deployment-to-heroku)
 - [**Cloning This Project**](#cloning-and-setting-up-this-project)
@@ -611,4 +611,28 @@ using the deployed API at https://pp-5-drf-api-cb9dad6bdfdf.herokuapp.com/.
 
 <br>[Back to top ⇧](#contents)
 
-### PEP8 Validation
+### PyCharm Code Inspections
+
+This project was developed in PyCharm IDE. In PyCharm, the integrated tool that 
+checks Python code for various issues, including style, syntax errors, and 
+more, is based on a combination of PEP 8 style guidelines, PyCharm's own 
+inspections, and external tools. The main components used for code validation 
+in PyCharm are:
+
+- **PEP 8 Checker**: PyCharm automatically checks your code against the PEP 8 
+standards to ensure it follows the recommended Python style guide. This 
+includes checking for issues like line length, whitespace usage, naming 
+conventions, etc.
+- **PyCharm Inspections**: PyCharm has built-in inspections that cover a wide 
+range of potential errors, code smells, and other issues. These inspections are 
+highly configurable and can be adjusted based on your project's needs. They can 
+detect not only Python-specific issues but also many framework-specific issues, 
+such as those related to Django.
+- External Tools Integration: PyCharm allows integration with external tools 
+like flake8, pylint, or mypy, which can be configured to run automatically on 
+your codebase. These tools provide additional checks beyond what PyCharm covers 
+with its own inspections and the PEP 8 checker.
+
+Throughout the development of this project, the files were regularly checked 
+and amended to ensure compliance with PyCharm's inspections. Occasionally, weak 
+warnings were intentionally ignored when they were deemed unreasonable.
