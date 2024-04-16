@@ -841,6 +841,46 @@ right corner of Heroku dashboard.
 
 ## Cloning and Forking Repository
 
+To make changes to the code without affecting the original version stored in the
+repository you may create a local copy of the repository, through cloning and
+forking methods.
+
+### Cloning the Repository:
+
+- Install Git on your local machine, if it is not already installed.
+- Navigate to the repository you want to clone in a web browser.
+- Click the "Clone or download" button and copy the repository's
+  URL (`https://github.com/gennadiy-gaysha/PP_5_rest_api`) to your clipboard.
+- Open a terminal or command prompt on your local machine.
+- Change to the directory where you want to clone the repository.
+- Type the command
+  `git clone https://github.com/gennadiy-gaysha/PP_5_rest_api.git`
+  and press enter.
+- Wait for the repository to download to your local machine.
+- Once the repository is downloaded, you can make changes to the code and use
+  Git to manage and sync those changes with the original repository.
+
+<br>[Back to top ⇧](#table-of-contents)
+
+- ### Forking the Repository:
+
+- Navigate to the repository you want to fork in a web browser.
+- Click the "Fork" button in the top right corner of the page.
+- Select your account as the destination for the forked repository.
+- Wait for the repository to be forked to your account.
+- Once the repository is forked, you can clone it to your local machine using
+  the steps above for cloning a repository.
+- You can make changes to the code and commit those changes to your forked
+  repository. If you want to contribute those changes back to the original
+  repository, you can create a pull request from your forked repository to the
+  original repository.
+
+- These instructions should help you create a local copy of a code repository
+  using both cloning and forking methods, allowing you to make changes to the
+  code and collaborate with other developers on the project.
+
+<br>[Back to top ⇧](#table-of-contents)
+
 ### Cloning the Repository
 
 ### Forking the Repository
