@@ -15,7 +15,6 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
 
 - [**Objective**](#objective)
 - [**Entity Relationship Diagram**](#entity-relationship-diagram)
-- [**Database setup**](#database-setup)
 - [**Apps and Models**](#apps-and-models)
   - [Paintings app](#paintings-app)
   - [Profiles app](#profiles-app)
@@ -27,6 +26,7 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
   - [**Manual Testing**](#manual-testing)
   - [**PyCharm Code Inspections**](#pycharm-code-inspections)
 - [**Technologies Used**](#technologies-used)
+- [**Database setup**](#database-setup)
 - [**Deployment To Heroku**](#deployment-to-heroku)
 - [**Cloning and Forking Repository**](#cloning-and-forking-repository)
   - [Cloning the Repository](#cloning-the-repository)
@@ -71,93 +71,6 @@ various options for the models created in my project:
 Below is the Entity Relationship Diagram for the PP_5_drf_api project:
 
 ![ERD ArtShowcase](readme_images/graphviz.png)
-
-<br>[Back to top ⇧](#contents)
-
-## Database setup
-
-* In this project, an [Elephant PostgreSQL](https://www.elephantsql.com/) 
-database instance was set up for access in the production environment on Heroku.
-
-The sequence of events is as follows:
-
-- **Install necessary libraries** (for this project, psycopg2 is utilized for 
-PostgreSQL connections):
-  - `pip install dj_database_url==0.5.0 psycopg2 python-dotenv`
-
-- **Set up a database on ElephantSQL**:
-  - Visit [ElephantSQL](https://www.elephantsql.com/), and sign up or log in.
-  - Click 'Create New Instance' in the top right corner.
-  - Provide a name for your instance or database, select a suitable Plan 
-  (the free tier is adequate), and then choose 'Select Region'.
-  - Select a region from the dropdown menu, review your choices, and confirm by 
-  clicking 'Create instance'.
-  - Return to the dashboard and select the newly created instance.
-  - Copy the database URL by clicking the copy icon in the URL section.
-
-- **Secure sensitive data using dotenv**:
-  - In the root directory of the project, create two files: `.gitignore` and 
-  `.env`.
-  - Store sensitive information like the Django secret key and the ElephantSQL 
-  database URL in the `.env` file:
-  ```
-  SECRET_KEY='your_secret_key'
-  DATABASE_URL='your_database_url_from_elephantsql'
-  ```
-  - Include the port number in the `DATABASE_URL` in your `.env` file: 
-  `...elephantsql.com:5432/...`
-
-- **Configure environment variables in Django**:
-  - Open `settings.py` in your Django project and add the following imports at 
-  the top:
-  ```python
-  import os
-  from pathlib import Path
-  from dotenv import load_dotenv
-  import dj_database_url
-  ```
-
-  - Retrieve the environment variables using `os.environ`, for example, for the 
-secret key:
-  
-  `SECRET_KEY = os.environ.get('SECRET_KEY')`
-
-  - Update the DATABASES section to the following
-  
-```
-# Check if DEV environment variable is set to '1' for development mode
-if os.environ.get('DEV') == '1':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    # Production mode settings
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
- ```
-
-- **Prevent sensitive data from being tracked**:
-  - Ensure `.env`, the virtual environment directory, and any local database 
-  file like `db.sqlite3` are listed in your `.gitignore`:
-  ```
-  .env
-  venv/
-  db.sqlite3
-  ```
-
-- **Handling `.env` in production**:
-  - In production, set the environment variables manually using your server 
-configuration tools or a service like Heroku's config vars.
-
-- **Database migrations**:
-  - To update your database schema to reflect any new or modified Django 
-models, execute:
-  
-  `python manage.py migrate`
 
 <br>[Back to top ⇧](#contents)
 
@@ -693,7 +606,236 @@ web applications.
 
 <br>[Back to top ⇧](#contents)
 
+## Database setup
+
+* In this project, an [Elephant PostgreSQL](https://www.elephantsql.com/) 
+database instance was set up for access in the production environment on Heroku.
+
+The sequence of events is as follows:
+
+- **Set up a database on ElephantSQL**:
+  - Visit [ElephantSQL](https://www.elephantsql.com/), and sign up or log in.
+  - Click 'Create New Instance' in the top right corner.
+  - Provide a name for your instance or database, select a suitable Plan 
+  (the free tier is adequate), and then choose 'Select Region'.
+  - Select a region from the dropdown menu, review your choices, and confirm by 
+  clicking 'Create instance'.
+  - Return to the dashboard and select the newly created instance.
+  - Copy the database URL by clicking the copy icon in the URL section.
+
+<br>[Back to top ⇧](#contents)
+
 ## Deployment To Heroku
+
+1. Head over to [Heroku's platform](https://www.heroku.com).
+2. Initiate a new app by clicking 'New app.'
+3. Provide the necessary details.
+4. Confirm the information and click 'Create app.'
+5. Open the Settings tab
+6. Add a Config Var DATABASE_URL, and for the value, copy in your database URL 
+  from ElephantSQL (do not add quotation marks)
+
+Now it is time to set up your project to connect to the ElephantSQL database, 
+create ypur database tables by running migrations, and confirm that it all 
+works by creating a superuser.
+
+7. Install necessary libraries (for this project, psycopg2 is utilized for 
+PostgreSQL connections):
+  - `pip install dj_database_url==0.5.0 psycopg2 python-dotenv`
+
+  - Configure environment variables in Django:
+    - Open `settings.py` in your Django project and add the following imports at 
+    the top:
+    ```
+    import os
+    from pathlib import Path
+    from dotenv import load_dotenv
+    import dj_database_url
+    ```
+
+    - Retrieve the environment variables using `os.environ`, for example, for the 
+  secret key:
+  
+    `SECRET_KEY = os.environ.get('SECRET_KEY')`
+
+    - Update the DATABASES section to the following:
+  
+    ```
+    # Check if DEV environment variable is set to '1' for development mode
+    if os.environ.get('DEV') == '1':
+      DATABASES = {
+          'default': {
+              'ENGINE': 'django.db.backends.sqlite3',
+              'NAME': BASE_DIR / 'db.sqlite3',
+          }
+      }
+    else:
+    # Production mode settings
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    ```
+This will ensure that when you have an environment variable for DEV in your 
+environment the code will connect to the sqlite database here in your IDE. 
+Otherwise, it will connect to your external database, provided the
+DATABASE_URL environment variable exist.
+
+8. Secure sensitive data using dotenv:
+  - In the root directory of the project, create two files: `.gitignore` and 
+  `.env`.
+  - Store sensitive information like the Django secret key and the ElephantSQL 
+  database URL in the `.env` file:
+  ```
+  SECRET_KEY='your_secret_key'
+  DATABASE_URL='your_database_url_from_elephantsql'
+  ```
+  - Include the port number in the `DATABASE_URL` in your `.env` file: 
+  `...elephantsql.com:5432/...`
+
+
+9. Prevent sensitive data from being tracked:
+  - Ensure `.env`, the virtual environment directory, and any local database 
+  file like `db.sqlite3` are listed in your `.gitignore`:
+  ```
+  .env
+  venv/
+  db.sqlite3
+  ```
+  
+10. Temporarily set environment variable DEV=0 so that your IDE can connect to 
+  your external database
+11. Back in your settings.py file, add a print statement to confirm you have 
+connected to the external database:
+
+```
+if os.environ.get('DEV') == '1':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # Production mode settings
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    print('Connected!')
+
+```
+12. In the terminal, `-–dry-run` your makemigrations to confirm you are 
+connected 
+to the external database: `py manage.py makemigrations --dry-run`
+13. If you are, you should see the ‘connected’ message printed to the terminal
+14. Remove the print statement
+15. Migrate your database models to your new database: `py manage.py migrate`
+16. Create a superuser for your new database: `py manage.py createsuperuser`
+
+Now head back to ElephantSQL to confirm the migration has taken effect on your 
+remote database.
+
+17. On the ElephantSQL page for your database, on the left side navigation, 
+select “BROWSER”
+18. Click the Table queries button, select auth_user
+19. When you click “Execute”, you should see your newly created superuser 
+details displayed. This confirms your tables have been created, and you can add 
+data to your database
+
+Head back to your IDE to make a few more edits before we deploy to Heroku. Now 
+that your external database has all its tables and a superuser, we will prepare 
+the project for deployment to Heroku. This will include installing a package 
+needed to run the project on Heroku, fixing a few environment variables, and 
+creating a Procfile file that will provide the commands to Heroku to build and 
+run the project.
+
+20. In the terminal of your IDE workspace, install gunicorn
+`pip3 install gunicorn django-cors-headers`
+21. Update your requirements.txt: `pip freeze > requirements.txt`
+22. Inside the Procfile, add these two commands:
+```
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn drf_api.wsgi
+```
+23. In your settings.py file, update the value of the ALLOWED_HOSTS 
+variable to include your Heroku app’s URL:
+```
+ALLOWED_HOSTS = ['127.0.0.1', '<your_app_name>.herokuapp.com']
+```
+24. Add corsheaders to INSTALLED_APPS:
+```
+INSTALLED_APPS = [
+    ...
+    'dj_rest_auth.registration',
+    'corsheaders',
+    ...
+ ]
+```
+25. Add corsheaders middleware to the TOP of the MIDDLEWARE:
+```
+ SITE_ID = 1
+ MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
+     ...
+ ]
+```
+26. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network 
+requests made to the server with the following code:
+```
+cors_origins = []
+
+# Get the CLIENT_ORIGIN from the environment and append it if it exists
+client_origin = os.environ.get('CLIENT_ORIGIN')
+if client_origin:
+    cors_origins.append(client_origin)
+
+# Get the CLIENT_ORIGIN_DEV from the environment and append it if it exists
+client_origin_dev = os.environ.get('CLIENT_ORIGIN_DEV')
+if client_origin_dev:
+    cors_origins.append(client_origin_dev)
+
+# Ensure CORS_ALLOWED_ORIGINS is always a list, even if empty or filled
+# based on conditions
+CORS_ALLOWED_ORIGINS = cors_origins
+
+# If there are no specific CLIENT_ORIGIN or CLIENT_ORIGIN_DEV, specify a
+# default or fallback
+if not CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
+```
+27. Enable sending cookies in cross-origin requests so that users can get 
+authentication functionality: `CORS_ALLOW_CREDENTIALS = True`
+28. To be able to have the front end app and the API deployed to different 
+platforms, set the JWT_AUTH_SAMESITE attribute to 'None'. Without this the 
+cookies would be blocked:
+```
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
+```
+29. Set DEBUG value: 
+```
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEV') == '1'
+```
+30. Set back environment variable DEV=1
+31. Ensure the project requirements.txt file is up-to-date. In the IDE 
+terminal of your DRF API project enter the following:
+`pip freeze > requirements.txt`
+32. Add, commit and push your code to GitHub 
+
+Head over to Heroku and add the new Config Vars to the app:
+![Config VAR image](readme_images/heroku-settings.png)
+
+33. Deployment to Heroku.
+  - Click 'Deploy' in the menubar tab then 'GitHub' under 'Deployment method'
+    - In "Deployment method" select GitHub, chose the repository you want to 
+      deploy and click 'Connect' 
+    - Scroll down and click 'Deploy Branch' or choose 'Enable Automatic 
+Deploys' to complete the process.
+    - To launch your site after deployment, click 'Open app' button in the top 
+right corner of Heroku dashboard.
 
 <br>[Back to top ⇧](#contents)
 
