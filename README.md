@@ -23,7 +23,7 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
   - [Observations app](#observations-app)
   
 - [**Testing**](#testing)
-  - [**Manual Testing**](#manual-testing)
+  - [**Manual API endpoints Testing**](#manual-api-endpoints-testing)
   - [**PyCharm Code Inspections**](#pycharm-code-inspections)
 - [**Technologies Used**](#technologies-used)
 - [**Database setup**](#database-setup)
@@ -32,8 +32,6 @@ You can view the back-end README.md here - [ART SHOWCASE Back-End README](https:
   - [Cloning the Repository](#cloning-the-repository)
   - [Forking the Repository](#forking-the-repository)
 - [**Credits**](#credits)
-  - [**Content**](#content)
-  - [**Media**](#media)
 - [**Acknowledgments**](#acknowledgements)
 
 ## Objective
@@ -465,7 +463,7 @@ feature set.
 
 ## Testing
 
-### Manual Testing
+### Manual API endpoints Testing
 
 All Create, Update, and Delete functionalities of API endpoints were manually 
 tested in development mode (DEV=1) on a local machine at the URL 
@@ -860,7 +858,7 @@ forking methods.
 - Once the repository is downloaded, you can make changes to the code and use
   Git to manage and sync those changes with the original repository.
 
-<br>[Back to top ⇧](#table-of-contents)
+<br>[Back to top ⇧](#contents)
 
 - ### Forking the Repository:
 
@@ -879,21 +877,50 @@ forking methods.
   using both cloning and forking methods, allowing you to make changes to the
   code and collaborate with other developers on the project.
 
-<br>[Back to top ⇧](#table-of-contents)
-
-### Cloning the Repository
-
-### Forking the Repository
-
 <br>[Back to top ⇧](#contents)
 
 ## Credits
 
-### Content
+This project was inspired by the [Code Institute](https://codeinstitute.net/) 
+DRF-API walkthrough and has been adapted to suit the specific requirements of 
+ArtShowcase.
 
-### Media
+Throughout the development process, I frequently consulted the official 
+documentation to enhance my understanding and deepen my knowledge of the 
+concepts introduced in the Code Institute DRF-API walkthrough. Below are the 
+links to the documentation sites for the libraries and frameworks utilized in 
+this project:
+
+[Django Documentation](https://www.djangoproject.com/)
+[Django REST Framework Documentation](https://www.django-rest-framework.org/)
+[dj-rest-auth Documentation](https://dj-rest-auth.readthedocs.io/en/latest/)
+[django-allauth Documentation](https://django-allauth.readthedocs.io/en/latest/)
+[django-cors-headers Documentation](https://github.com/adamchainz/django-cors-headers)
+[django-filter Documentation](https://django-filter.readthedocs.io/en/stable/)
+[dj-database-url Documentation](https://github.com/jacobian/dj-database-url)
+[djangorestframework-simplejwt Documentation](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
+
 
 <br>[Back to top ⇧](#contents)
 
 ## Acknowledgments
+
+I have found great satisfaction in developing this project, despite the steep 
+learning curve presented by React. Through persistent effort, I have acquired 
+a solid foundation in creating applications with an advanced front-end 
+framework such as React, integrated with a back-end API using Django REST 
+Framework. 
+
+ - I want to express my deepest gratitude to my partner for her unwavering 
+support and encouragement throughout this project. Her belief in my 
+capabilities has been a driving force, and I am grateful for her presence in 
+this journey.
+- To my daughter Anna, who enthusiastically stepped into the role of the 
+website's first beta tester. Her feedback and suggestions have been 
+instrumental in enhancing the project.
+- I am thankful to my mentor, Marcel, for his expert guidance and support.
+- Finally, I appreciate the [Code Institute](https://codeinstitute.net/) and 
+the supportive Slack community for their constant help and for providing the 
+essential skills and resources needed to successfully complete this project.
+
 <br>[Back to top ⇧](#contents)
