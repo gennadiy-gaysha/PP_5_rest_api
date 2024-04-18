@@ -50,7 +50,6 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     profile data rich and useful without additional queries.
     """
     serializer_class = ProfileSerializer
-    # queryset = Profile.objects.all()
     queryset = Profile.objects.annotate(
         paintings_count=Count('owner__painting', distinct=True),
         followers_count=Count('owner__followed', distinct=True),

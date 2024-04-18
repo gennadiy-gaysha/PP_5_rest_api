@@ -3,23 +3,18 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env file
 load_dotenv()
 
 CLOUDINARY_STORAGE = {'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')}
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Adjust the REST_FRAMEWORK setting based on the DEV environment variable
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # Sessions in Development
         'rest_framework.authentication.SessionAuthentication'
         if os.environ.get('DEV') == '1'
-        # Tokens in Production
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ],
     'DEFAULT_PAGINATION_CLASS':
@@ -28,9 +23,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-# Check if DEV environment variable is set to '1' (development mode)
 if os.environ.get('DEV') != '1':
-    # Apply production-specific settings
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
@@ -39,16 +32,11 @@ REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-# To be able to have the front end app and the API deployed to different
-# platforms, set the JWT_AUTH_SAMESITE attribute to 'None'. Without this the
-# cookies would be blocked.
 JWT_AUTH_SAMESITE = 'None'
 
-# For session cookies
 SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True  # Remember, SameSite='None' requires Secure=True
+SESSION_COOKIE_SECURE = True
 
-# For CSRF cookies
 CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SECURE = True
 
@@ -56,20 +44,14 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'
 }
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEV') == '1'
 
 ALLOWED_HOSTS = [
        os.environ.get('ALLOWED_HOST', '127.0.0.1'),
     ]
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -117,30 +99,22 @@ MIDDLEWARE = [
 # ============================================================================
 cors_origins = []
 
-# Get the CLIENT_ORIGIN from the environment and append it if it exists
 client_origin = os.environ.get('CLIENT_ORIGIN')
 if client_origin:
     cors_origins.append(client_origin)
 
-# Get the CLIENT_ORIGIN_DEV from the environment and append it if it exists
 client_origin_dev = os.environ.get('CLIENT_ORIGIN_DEV')
 if client_origin_dev:
     cors_origins.append(client_origin_dev)
 
-# Ensure CORS_ALLOWED_ORIGINS is always a list, even if empty or filled
-# based on conditions
 CORS_ALLOWED_ORIGINS = cors_origins
 
-# If there are no specific CLIENT_ORIGIN or CLIENT_ORIGIN_DEV, specify a
-# default or fallback
 if not CORS_ALLOWED_ORIGINS:
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r"^https://.*\.gitpod\.io$",
     ]
 # ============================================================================
 
-# Enable sending cookies in cross-origin requests so
-# that users can get authentication functionality
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'drf_api.urls'
@@ -163,10 +137,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drf_api.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# Check if DEV environment variable is set to '1' for development mode
 if os.environ.get('DEV') == '1':
     DATABASES = {
         'default': {
@@ -175,14 +145,10 @@ if os.environ.get('DEV') == '1':
         }
     }
 else:
-    # Production mode settings
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
     # print('Connected!')
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -199,9 +165,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -212,12 +175,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

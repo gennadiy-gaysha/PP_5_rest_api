@@ -11,7 +11,8 @@ class CommentList(generics.ListCreateAPIView):
 
     * Requires authentication for posting comments.
     * Any user can view comments.
-    * Supports filtering comments by the 'painting' field to retrieve all comments associated with a specific painting.
+    * Supports filtering comments by the 'painting' field to retrieve all
+    comments associated with a specific painting.
     """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -19,7 +20,6 @@ class CommentList(generics.ListCreateAPIView):
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = [
-        # retrieves all the comments associated with a given painting
         'painting'
     ]
 

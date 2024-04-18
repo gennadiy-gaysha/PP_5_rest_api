@@ -10,6 +10,11 @@ from .settings import (
 
 @api_view()
 def endpoint_list(request):
+    """
+    Provides a list of all available API endpoints. This can be useful for API
+    discovery and initial navigation to various resources offered by the
+    server.
+    """
     return Response([
         'http://127.0.0.1:8000/profiles/',
         'http://127.0.0.1:8000/paintings/',
@@ -24,9 +29,13 @@ def endpoint_list(request):
     ])
 
 
-# dj-rest-auth logout view fix
 @api_view(['POST'])
 def logout_route(request):
+    """
+    Handles the user logout process by clearing JWT tokens stored in HTTP-only
+    cookies. This route effectively logs the user out by expiring the
+    authentication and refresh tokens.
+    """
     response = Response()
     response.set_cookie(
         key=JWT_AUTH_COOKIE,

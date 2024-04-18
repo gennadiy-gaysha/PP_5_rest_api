@@ -50,7 +50,6 @@ class PaintingDetail(generics.RetrieveUpdateDestroyAPIView):
     delete it.
     """
     serializer_class = PaintingSerializer
-    # queryset = Painting.objects.all()
     queryset = Painting.objects.annotate(
         comments_count=Count('comment', distinct=True),
         observations_count=Count('observations', distinct=True)

@@ -22,17 +22,6 @@ class FollowerSerializer(serializers.ModelSerializer):
         method from Django's ModelSerializer class, which is used to handle
         the creation of new instances of the Follower model based on the
         validated data received from an API request.
-
-        Args:
-            validated_data (dict): Data validated by the serializer to be used
-                                   to create a new Follower instance.
-
-        Returns:
-            Follower: The newly created Follower instance.
-
-        Raises:
-            serializers.ValidationError: If an IntegrityError occurs,
-            indicating a duplicate entry.
         """
         try:
             return super().create(validated_data)
