@@ -5,7 +5,9 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 
 class CommentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Comment model
+    A serializer for the Comment model, providing serialization for basic
+    attributes along with custom methods to display whether the request user
+    is the owner of the comment and formatted timestamps.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -16,6 +18,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_is_owner(self, obj):
         """
+        Determine if the current request user is the owner of the comment.
         This method takes an instance of the object being serialized (obj) as
         its argument. Retrieves the current request object from self.context[
         'request']. The context is a dictionary that serializers have, which
@@ -27,9 +30,15 @@ class CommentSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     def get_created_at(self, obj):
+        """
+        Return a human-readable time since the comment was created.
+        """
         return naturaltime(obj.created_at)
 
     def get_updated_at(self, obj):
+        """
+        Return a human-readable time since the comment was last updated.
+        """
         return naturaltime(obj.updated_at)
 
     class Meta:
@@ -40,6 +49,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class CommentDetailSerializer(CommentSerializer):
     """
-    Serializer for the Comment model used in Detail view
+    A serializer for displaying detailed information of a Comment,
+    extending CommentSerializer with an additional field to display the
+    associated painting's ID.
     """
     painting = serializers.ReadOnlyField(source='painting.id')

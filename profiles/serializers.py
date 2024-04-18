@@ -4,16 +4,22 @@ from followers.models import Follower
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Profile model, handling serialization of user profiles
+    along with custom logic for dynamically computed fields like ownership
+    status and following relationships.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     email = serializers.ReadOnlyField(source='owner.email')
     paintings_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
-    # SerializerMethodField - is a type of field that is used in DRF serializers
-    # to add custom fields to our serialized data, where the value of the field
-    # is computed by a method on the serializer class SerializerMethodField: This
-    # is a read-only field. It is used in a serializer to include some custom or
-    # computed data in the serialization output.
+    # SerializerMethodField - is a type of field that is used in DRF
+    # serializers to add custom fields to our serialized data, where the
+    # value of the field is computed by a method on the serializer class
+    # SerializerMethodField: This is a read-only field. It is used in a
+    # serializer to include some custom or computed data in the
+    # serialization output.
     # Dynamic Content: The content of this field is not directly taken from the
     # model instance. It's determined by a method we define on the serializer.
     is_owner = serializers.SerializerMethodField()
@@ -24,11 +30,16 @@ class ProfileSerializer(serializers.ModelSerializer):
     # For our field is_owner, the method should be named get_is_owner.
     # Method Implementation: This method takes an instance of the model being
     # serialized (in this case, an instance of a Profile) and returns the value
-    # that should be assigned to the is_owner field in the serialized representation.
-    # The value for is_owner is determined by the get_is_owner method. This method
-    # takes the profile object (obj) as its argument.
+    # that should be assigned to the is_owner field in the serialized
+    # representation.
+    # The value for is_owner is determined by the get_is_owner method.
+    # This method takes the profile object (obj) as its argument.
     def get_is_owner(self, obj):
-        # The method first retrieves the current HTTP request from the serializer context
+        """
+        Determine if the current request user is the owner of the profile.
+        """
+        # The method first retrieves the current HTTP request from the
+        # serializer context
         request = self.context['request']
         # The method compares the user making the request (request.user)
         # with the owner of the profile (obj.owner). If they are the same, it
@@ -36,7 +47,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     def get_following_id(self, obj):
-        # get a current user from a context object
+        """
+        Retrieves the ID of the Follower instance if the current user is
+        following the owner of the profile, else returns None.
+        """
         user = self.context['request'].user
         # The method checks if the current user is authenticated. If not, the
         # method returns None because an unauthenticated user cannot be

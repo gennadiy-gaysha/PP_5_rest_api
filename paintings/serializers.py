@@ -4,6 +4,11 @@ from observations.models import Observation
 
 
 class PaintingSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Painting model that includes serialization for painting
+    attributes along with additional fields and custom validation and
+    retrieval methods.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
@@ -16,11 +21,18 @@ class PaintingSerializer(serializers.ModelSerializer):
     comments_count = serializers.ReadOnlyField()
 
     def validate_creation_year(self, value):
+        """
+        Validates that the provided year for a painting's creation falls within
+        an acceptable range.
+        """
         if not 1000 <= value <= 9999:
             raise serializers.ValidationError('Enter a valid year')
         return value
 
     def validate_image(self, value):
+        """
+        Validates the size and dimensions of the uploaded image for a painting.
+        """
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError('Image size is larger than 2MB!')
         if value.image.width > 4096:
@@ -32,12 +44,16 @@ class PaintingSerializer(serializers.ModelSerializer):
         return value
 
     def get_is_owner(self, obj):
+        """
+        Checks if the current request user is the owner of the painting.
+        """
         request = self.context['request']
         return request.user == obj.owner
 
     def get_orientation(self, obj):
         """
-        Determines the orientation of the painting based on its width and height.
+        Determines the orientation of the painting based on its width and
+        height.
         """
         if obj.width > obj.height:
             return 'Horizontal'
@@ -47,6 +63,10 @@ class PaintingSerializer(serializers.ModelSerializer):
             return 'Square'
 
     def get_observation_id(self, obj):
+        """
+        Retrieves the ID of the observation made by the current request user
+        for the painting.
+        """
         user = self.context['request'].user
         if user.is_authenticated:
             observation = Observation.objects.filter(owner=user,

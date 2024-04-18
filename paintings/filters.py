@@ -4,6 +4,11 @@ from django.db.models import F
 
 
 class PaintingFilter(df_filters.FilterSet):
+    """
+    FilterSet for the Painting model. Provides filtering options for paintings
+    by theme, technique, orientation, and specific user-based filters such
+    as user's favorites, watchlist, and owned paintings.
+    """
     ORIENTATION_CHOICES = [
         ('Horizontal', 'Horizontal'),
         ('Vertical', 'Vertical'),
@@ -25,8 +30,9 @@ class PaintingFilter(df_filters.FilterSet):
 
     def filter_orientation(self, queryset, name, value):
         """
-        Filters the queryset based on painting orientation.
-        Assumes 'Horizontal', 'Vertical', and 'Square' as valid values for 'value'.
+        Custom method to filter the queryset based on the orientation of
+        paintings. Orientation is determined by comparing the width and
+        height of each painting.
         """
         if value.lower() == 'horizontal':
             return queryset.filter(width__gt=F('height'))
